@@ -1,0 +1,7 @@
+{
+    "python.analysis.extraPaths": [
+        "./.venv/lib/python3.14/site-packages"
+    ],
+    "python.terminal.useENVFile": true
+}
+

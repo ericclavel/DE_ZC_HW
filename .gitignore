@@ -1,0 +1,53 @@
+# Environments
+.env
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Data and output files
+data/
+*.parquet
+*.csv
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+
+# Terraform working directory
+**/.terraform/*
+
+# Terraform state
+*.tfstate
+*.tfstate.*
+
+# Terraform variable files
+*.tfvars
+*.tfvars.json
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform plans
+*.tfplan
+
+# Terraform CLI config
+.terraformrc
+terraform.rc
+
+# Credentials
+keys/
+credentials.json
+service-account*.json
+application_default_credentials.json
