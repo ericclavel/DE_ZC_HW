@@ -51,3 +51,9 @@ keys/
 credentials.json
 service-account*.json
 application_default_credentials.json
+
+.env
+.env_encoded
+service-account.json
+gcp-credentials.json
+gcp-service-account.json

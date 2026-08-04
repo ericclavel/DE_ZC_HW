@@ -7,13 +7,13 @@ variable "project" {
 variable "region" {
   description = "GCP region"
   type        = string
-  default     = "us-west1"
+  default     = "us-west2"
 }
 
 variable "location" {
   description = "GCP resource location"
   type        = string
-  default     = "us-west1"
+  default     = "us-west2"
 }
 
 variable "bq_dataset_name" {
@@ -25,7 +25,7 @@ variable "bq_dataset_name" {
 variable "gcs_bucket_name" {
   description = "Google Cloud Storage bucket name"
   type        = string
-  default = "arctic-operand-398220-eclavel-hw"
+  default     = "arctic-operand-398220-eclavel-hw"
 }
 
 variable "gcs_storage_class" {
