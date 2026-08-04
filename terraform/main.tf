@@ -9,6 +9,7 @@ resource "google_storage_bucket" "demo_bucket" {
   storage_class = var.gcs_storage_class
 
   uniform_bucket_level_access = true
+  force_destroy = true
 
   lifecycle {
     prevent_destroy = false

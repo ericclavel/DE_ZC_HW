@@ -57,4 +57,42 @@
 
 
 # Week 2:
-        
+    # Question 1:
+        128.3 MiB
+
+    # Question 2:
+        green_tripdata_2020-04.csv
+
+    # Question 3:
+        SELECT COUNT(*) AS row_count
+        FROM `YOUR_PROJECT.YOUR_DATASET.yellow_tripdata_2020_*`
+        WHERE _TABLE_SUFFIX IN (
+        '01', '02', '03', '04', '05', '06',
+        '07', '08', '09', '10', '11', '12'
+        );
+
+        (answer = 24,648,499)
+
+    # Question 4:
+        CREATE OR REPLACE EXTERNAL TABLE `arctic-operand-398220.zoomcamp.green_2020_all_ext`
+        OPTIONS (
+        format = 'CSV',
+        uris = ['gs://arctic-operand-398220-eclavel-hw/green_tripdata_2020-*.csv'],
+        skip_leading_rows = 1
+        );
+
+        SELECT COUNT(*) AS row_count
+        FROM `arctic-operand-398220.zoomcamp.green_2020_all_ext`;
+
+        (answer = 1,734,051)
+
+
+    # Question 5:
+        SELECT COUNT(*) AS row_count
+        FROM `arctic-operand-398220.zoomcamp.yellow_tripdata_2021_03`;
+
+        (answer = 1,925,152)
+
+
+    # Question 6:
+        Add a timezone property set to America/New_York in the Schedule trigger configuration
