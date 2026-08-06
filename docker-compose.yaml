@@ -99,6 +99,14 @@ services:
       kestra_postgres:
         condition: service_started
 
+  week_3_loader:
+    build:
+      context: ./week_3
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /secrets/gcp-service-account.json
+    volumes:
+      - ./gcp-service-account.json:/secrets/gcp-service-account.json:ro
+
 volumes:
   ny_taxi_postgres_data:
     driver: local

@@ -1,0 +1,38 @@
+{
+  "outputs": {
+    "predicted_trip_distance": {
+      "output_tensor_name": "compute:0"
+    }
+  },
+  "inputs": {
+    "passenger_count": {
+      "input_tensor_name": "passenger_count:0",
+      "encoding": "identity",
+      "modality": "numeric"
+    },
+    "pickup_day_of_week": {
+      "input_tensor_name": "pickup_day_of_week:0",
+      "encoding": "identity",
+      "modality": "numeric"
+    },
+    "pickup_hour": {
+      "input_tensor_name": "pickup_hour:0",
+      "encoding": "identity",
+      "modality": "numeric"
+    },
+    "DOLocationID": {
+      "input_tensor_name": "DOLocationID:0",
+      "encoding": "identity",
+      "modality": "numeric"
+    },
+    "PULocationID": {
+      "input_tensor_name": "PULocationID:0",
+      "encoding": "identity",
+      "modality": "numeric"
+    }
+  },
+  "framework": "Tensorflow",
+  "tags": [
+    "explainable_ai_sdk"
+  ]
+}

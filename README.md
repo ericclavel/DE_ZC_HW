@@ -96,3 +96,158 @@
 
     # Question 6:
         Add a timezone property set to America/New_York in the Schedule trigger configuration
+
+
+# Week 3:
+    # Question 1:
+        SELECT COUNT(*) AS record_count  
+        FROM `arctic-operand-398220.zoomcamp.yellow_taxi_2024_external` 
+
+        (answer = 20,332,093)
+
+
+    # Question 2:
+        SELECT COUNT(DISTINCT PULocationID) AS distinct_pickup_locations
+        FROM `arctic-operand-398220.zoomcamp.yellow_taxi_2024_external`;
+
+        SELECT COUNT(DISTINCT PULocationID) AS distinct_pickup_locations
+        FROM `arctic-operand-398220.zoomcamp.yellow_taxi_2024` ;
+
+        (answer = 0 MB for external and 155.12 MB for materialized)
+
+
+    # Question 3:
+        BigQuery is a columnar database, and it only scans the specific columns requested in the query. Querying two columns (PULocationID, DOLocationID) requires reading more data than querying one column (PULocationID), leading to a higher estimated number of bytes processed.
+
+
+    # Question 4:
+        SELECT COUNT(*) AS zero_fare_trips
+        FROM `arctic-operand-398220.zoomcamp.yellow_taxi_2024_external`
+        WHERE fare_amount = 0;
+
+        (answer = 8,333)
+
+
+    # Question 5:
+        CREATE OR REPLACE TABLE
+        `arctic-operand-398220.zoomcamp.yellow_taxi_2024_optimized`
+
+        PARTITION BY DATE(tpep_dropoff_datetime)
+
+        CLUSTER BY VendorID
+
+        AS
+        SELECT *
+        FROM `arctic-operand-398220.zoomcamp.yellow_taxi_2024`;
+
+        (answer = Partition by tpep_dropoff_datetime and Cluster on VendorID)
+
+
+    # Question 6:
+        310.24 MB for non-partitioned table and 26.84 MB for the partitioned table
+
+
+    # Question 7:
+        GCP Bucket
+
+
+    # Question 8:
+        True
+
+
+    # Question 9:
+        0 B.  There is no filters so BigQuery doesn't need to scan any columns.  Row count is available in the tables metadata which BigQuery can see.
+
+
+
+    # ML Learning:
+        Question: Can we predict trip distance from pickup location, drop-off location, time of day, and passenger count?
+
+        Target to predict:  
+            -trip_distance
+
+        Input data features:
+            -PULocationID
+            -DOLocationID
+            -passenger_count
+            -pickup_hour
+            -pickup_day_of_week
+
+        Training Data:
+            CREATE OR REPLACE MODEL
+            `arctic-operand-398220.zoomcamp.trip_distance_model`
+            OPTIONS (
+            model_type = 'linear_reg',
+            input_label_cols = ['trip_distance']
+            ) AS
+
+            SELECT
+            trip_distance,
+            CAST(PULocationID AS STRING) AS PULocationID,
+            CAST(DOLocationID AS STRING) AS DOLocationID,
+            passenger_count,
+            EXTRACT(HOUR FROM tpep_pickup_datetime) AS pickup_hour,
+            EXTRACT(DAYOFWEEK FROM tpep_pickup_datetime) AS pickup_day_of_week
+            FROM `arctic-operand-398220.zoomcamp.yellow_taxi_2024`
+            WHERE MOD(
+            ABS(FARM_FINGERPRINT(
+                CONCAT(
+                CAST(tpep_pickup_datetime AS STRING),
+                CAST(PULocationID AS STRING),
+                CAST(DOLocationID AS STRING)
+                )
+            )),
+            100
+            ) < 5
+            AND trip_distance > 0
+            AND trip_distance <= 100;
+
+
+                Mean absolute error = 1.4078
+                Mean squared error = 6.5934
+                Mean squared log error = 0.193
+                Median absolute error = 0.8877
+                R squared = 0.6778
+
+
+        Evaluate using data not used during training:
+
+            SELECT *
+            FROM ML.EVALUATE(
+            MODEL `arctic-operand-398220.zoomcamp.trip_distance_model`,
+            (
+                SELECT
+                trip_distance,
+                CAST(PULocationID AS STRING) AS PULocationID,
+                CAST(DOLocationID AS STRING) AS DOLocationID,
+                passenger_count,
+                EXTRACT(HOUR FROM tpep_pickup_datetime) AS pickup_hour,
+                EXTRACT(DAYOFWEEK FROM tpep_pickup_datetime) AS pickup_day_of_week
+                FROM `arctic-operand-398220.zoomcamp.yellow_taxi_2024`
+                WHERE MOD(
+                ABS(FARM_FINGERPRINT(
+                    CONCAT(
+                    CAST(tpep_pickup_datetime AS STRING),
+                    CAST(PULocationID AS STRING),
+                    CAST(DOLocationID AS STRING)
+                    )
+                )),
+                100
+                ) BETWEEN 5 AND 9
+                AND trip_distance > 0
+                AND trip_distance <= 100
+            )
+            );
+                "mean_absolute_error": "1.6033971988730935",
+                "mean_squared_error": "4840.4992122161129",
+                "mean_squared_log_error": "0.18773686681994203",
+                "median_absolute_error": "0.88041263354680277",
+                "r2_score": "-254.97024531311405",
+                "explained_variance": "-254.96741852614554"
+
+
+        Internal evaluation produced an R² of 0.6778, but a separate holdout sample revealed extreme negative predictions and a strongly negative R². This suggests the baseline linear model was unstable for sparse categorical location features and would require a different model or preprocessing strategy for production use.
+
+
+        
+# Week 4:
