@@ -57,3 +57,7 @@ application_default_credentials.json
 service-account.json
 gcp-credentials.json
 gcp-service-account.json
+
+# dbt local/runtime files
+week_4/dbt/logs/
+week_4/dbt/profiles/
