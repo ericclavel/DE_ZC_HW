@@ -8,3 +8,116 @@ sources:
   tables:
   - name: green_tripdata
   - name: yellow_tripdata
+
+models:
+  - name: stg__green_tripdata
+    columns:
+      - name: trip_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: vendor_id
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2]
+                quote: false
+
+      - name: pickup_datetime
+        data_tests:
+          - not_null
+
+      - name: dropoff_datetime
+        data_tests:
+          - not_null
+
+      - name: pickup_location_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_zones')
+                field: location_id
+
+      - name: dropoff_location_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_zones')
+                field: location_id
+
+      - name: payment_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5, 6]
+                quote: false
+
+      - name: rate_code_id
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5, 6, 99]
+                quote: false
+
+  - name: stg__yellow_tripdata
+    columns:
+      - name: trip_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: vendor_id
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2]
+                quote: false
+
+      - name: pickup_datetime
+        data_tests:
+          - not_null
+
+      - name: dropoff_datetime
+        data_tests:
+          - not_null
+
+      - name: pickup_location_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_zones')
+                field: location_id
+          
+      - name: dropoff_location_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_zones')
+                field: location_id
+
+      - name: payment_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5, 6]
+                quote: false
+
+      - name: rate_code_id
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5, 6, 99]
+                quote: false
+
+
+
+          
+
+
