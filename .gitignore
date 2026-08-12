@@ -12,6 +12,8 @@ venv.bak/
 data/
 *.parquet
 *.csv
+!week_4/dbt/week_4_dbt/seeds/*.csv
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

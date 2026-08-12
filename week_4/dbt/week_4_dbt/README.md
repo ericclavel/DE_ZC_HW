@@ -1,10 +1,8 @@
-Welcome to your new dbt project!
 
-### Using the starter project
 
-Try running the following commands:
-- dbt run
-- dbt test
+docker compose run --rm dbt deps
+docker compose run --rm dbt debug --target dev
+docker compose run --rm dbt build --target dev
 
 
 ### Resources:
