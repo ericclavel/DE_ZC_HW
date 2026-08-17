@@ -49,6 +49,8 @@ renamed as (
 
     from source
     where vendorid is not null
+        and lpep_pickup_datetime >= timestamp('2019-01-01')
+        and lpep_pickup_datetime < timestamp('2021-01-01')
 
 ),
 

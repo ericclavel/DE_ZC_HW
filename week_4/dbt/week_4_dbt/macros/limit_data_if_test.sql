@@ -5,3 +5,5 @@
     {% endif %}
 
 {% endmacro %}
+
+-- docker compose run --rm dbt build --target dev --vars '{is_test_run: false}' --

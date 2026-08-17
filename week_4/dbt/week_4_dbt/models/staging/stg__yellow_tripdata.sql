@@ -47,6 +47,8 @@ renamed as (
     from source
     -- Filter out records with null vendor_id (data quality requirement)
     where vendorid is not null
+        and tpep_pickup_datetime >= timestamp('2019-01-01')
+        and tpep_pickup_datetime < timestamp('2021-01-01')
 ),
 
 enriched as (
