@@ -251,3 +251,44 @@
 
         
 # Week 4:
+
+    # Question 1:
+        answer: int_trips_unioned only.  This command dbt run --select +int_trips_unioned would include ancestors. 
+
+    # Question 2: 
+        answer: dbt will fail the test, returning a non-zero exit code.
+
+    # Question 3:
+        answer: 11,702
+
+    # Question 4:
+        SELECT
+        pickup_zone, SUM(revenue_monthly_total_amount) AS total_revenue
+
+        FROM `arctic-operand-398220.analytics_prod.fct_monthly_zone_revenues`
+        WHERE service_type = 'Green'
+        AND revenue_month >= DATE('2020-01-01')
+        AND revenue_month <= DATE('2021-01-01')
+        GROUP BY pickup_zone
+        ORDER BY total_revenue desc
+        LIMIT 1;
+
+        answer: East Harlem North
+
+    # Question 5:
+        SELECT
+        SUM(total_monthly_trips) AS total_trips
+
+        FROM `arctic-operand-398220.analytics_prod.fct_monthly_zone_revenues`
+        WHERE service_type = 'Green'
+        AND revenue_month = DATE('2019-10-01')
+
+        answer: 383,852
+
+    # Question 6:
+        answer: 43,244,693
+
+
+# Week 5:
+
+    # Question 1:
