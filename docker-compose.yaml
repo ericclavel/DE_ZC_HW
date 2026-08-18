@@ -125,6 +125,12 @@ services:
     volumes:
       - ./gcp-service-account.json:/secrets/gcp-service-account.json:ro
 
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    ports:
+      - "3000:3000"
+
 volumes:
   ny_taxi_postgres_data:
     driver: local
