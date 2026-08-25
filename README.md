@@ -292,3 +292,27 @@
 # Week 5:
 
     # Question 1:
+        answer: .bruin.yml and pipeline/ with pipeline.yml and assets/
+
+    # Question 2:
+        answer: time_interval
+
+    # Question 3:
+        answer: bruin run --var 'taxi_types=["yellow"]'
+
+    # Question 4:
+        answer: bruin run ingestion/trips.py --downstream
+
+    # Question 5:
+        answer: name: not_null
+
+    # Question 6:
+        answer: bruin lineage
+
+    # Question 7:
+        answer: --full-refresh
+
+
+# Week 6:
+
+    # Question 1:
