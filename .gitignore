@@ -63,3 +63,7 @@ gcp-service-account.json
 # dbt local/runtime files
 week_4/dbt/logs/
 week_4/dbt/profiles/
+
+.ipynb_checkpoints/
+*.crc
+_SUCCESS
