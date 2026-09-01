@@ -315,4 +315,66 @@
 
 # Week 6:
 
+    # Question 1: 
+        answer: 4.2.0
+
+    # Question 2:
+        answer: 25MB
+
+    # Question 3:
+        df_yellow.createOrReplaceTempView("yellow")
+        spark.sql("""
+        SELECT COUNT(*) AS total_trips
+
+        FROM yellow
+        WHERE tpep_pickup_datetime >= '2025-11-15' AND tpep_pickup_datetime < '2025-11-16'
+
+        """).show()
+        answer: 162,604
+
+    # Question 4:
+        spark.sql("""
+            SELECT
+                tpep_pickup_datetime,
+                tpep_dropoff_datetime,
+                total_amount,
+                trip_distance,
+                fare_amount,
+                timestampdiff(MINUTE, tpep_pickup_datetime, tpep_dropoff_datetime) AS trip_minutes,
+                trip_minutes / 60 AS trip_hours
+            FROM yellow
+            ORDER BY trip_hours DESC
+            LIMIT 10
+
+        """).show()
+
+
+        answer: 90.6 hours
+
+
+    # Question 5:
+        answer: 4040
+
+    # Question 6:
+        spark.sql("""
+            SELECT
+                Zone,
+                COUNT(PULocationID) AS zone_frequency
+            FROM joined
+            GROUP BY Zone
+            ORDER BY zone_frequency ASC
+            LIMIT 1
+    
+        """).show()
+
+
+        answer:  Governor's Island/Ellis Island/Liberty Island
+
+
+
+# Week 7:
+
     # Question 1:
+
+
+
